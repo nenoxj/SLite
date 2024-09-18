@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.note.slite</groupId>
+        <artifactId>slite</artifactId>
+        <version>1.0.1</version>
+    </parent>
+    <artifactId>slite-ui</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>cn.note.slite</groupId>
+            <artifactId>slite-service</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>windows-for-install</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <!--打包配置-->
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.fvarrui</groupId>
+                        <artifactId>javapackager</artifactId>
+                        <version>1.6.6</version>
+                        <executions>
+                            <execution>
+                                <id>bundle-with-jre</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                                <configuration>
+                                    <name>SLite</name>
+                                    <!-- 启动类 -->
+                                    <mainClass>cn.note.swing.slite.SLiteApplication</mainClass>
+                                    <!--       &lt;!&ndash;  添加精简jre缺少的模块  &ndash;&gt;
+                                           <additionalModules>
+                                               &lt;!&ndash;  我这里自动生成的精简jre缺少这个模块，运行会报错  &ndash;&gt;
+                                               <additionalModule>jdk.charsets</additionalModule>
+                                           </additionalModules>-->
+                                    <jrePath>${project.basedir}/../resources/jre64</jrePath>
+                                    <!-- 包含jre -->
+                                    <bundleJre>true</bundleJre>
+                                    <!-- 生成安装包 -->
+                                    <generateInstaller>true</generateInstaller>
+                                    <!-- 不使用管理员身份打开程序 -->
+                                    <administratorRequired>false</administratorRequired>
+                                    <!-- 将指定文件夹包含到生成的程序路径 -->
+                                    <!-- <additionalResources>
+                                        <additionalResource>D:\projects\aio\config</additionalResource>
+                                    </additionalResources> -->
+                                    <!-- 平台 -->
+                                    <platform>windows</platform>
+                                    <!-- exe 名称，通过引用的方式 -->
+                                    <displayName>SLite</displayName>
+                                    <!-- 虚拟机参数 -->
+                                    <!-- <vmArgs>
+                                        <vmArg> \-\-add-opens java.base/java.lang=ALL-UNNAMED</vmArg>
+                                    </vmArgs> -->
+                                    <!-- 特定平台参数 -->
+                                    <winConfig>
+                                        <!-- 软件图标 -->
+                                        <icoFile>${project.basedir}/../resources/slite.ico</icoFile>
+                                        <generateSetup>true</generateSetup>
+                                        <generateMsi>false</generateMsi>
+                                        <generateMsm>false</generateMsm>
+                                        <setupLanguages>
+                                            <chinese>compiler:Languages\ChineseSimplified.isl</chinese>
+                                        </setupLanguages>
+                                        <disableDirPage>false</disableDirPage>
+                                        <disableProgramGroupPage>false</disableProgramGroupPage>
+                                        <disableFinishedPage>false</disableFinishedPage>
+                                        <disableRunAfterInstall>false</disableRunAfterInstall>
+                                        <disableWelcomePage>false</disableWelcomePage>
+                                        <createDesktopIconTask>true</createDesktopIconTask>
+                                        <removeOldLibs>true</removeOldLibs>
+                                    </winConfig>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
