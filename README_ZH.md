@@ -47,3 +47,7 @@ mvn install:install-file -DgroupId=cn.note.swing -DartifactId=note-swing-core -D
 而innosetup不支持中文，需要拷贝[ChineseSimplified.isl](resources%2FChineseSimplified.isl)至innosetup的Languages 目录下。
 
 javapackager支持多平台，可以打包为mac、linux，更多参考文档：[JavaPackager](https://github.com/fvarrui/JavaPackager)
+
+### 下载
+
+下载免安装包: [Slite](https://github.com/nenoxj/SLite/releases/latest)

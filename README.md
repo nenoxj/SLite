@@ -46,3 +46,8 @@ Based on javapackager, in Maven Pom，This parameter is configured to package as
 And innosetup does not support Chinese, you can copy[ChineseSimplified.isl](resources%2FChineseSimplified.isl)to innosetup Languages DIRECTORY。
 
 JavaPackager supports multiple platforms，Pack if needed mac、linux，More references：[JavaPackager](https://github.com/fvarrui/JavaPackager)
+
+
+### Download
+
+Download packages: [Slite](https://github.com/nenoxj/SLite/releases/latest)
