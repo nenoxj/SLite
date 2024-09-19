@@ -12,11 +12,11 @@ It is mainly used to assist in prompting, and you can quickly find some commonly
 
 + Search for index information
 
-+ ![search.gif](assets/search.gif)
+ ![search.gif](assets/search.gif)
 
 + Enter index information
 
-+ ![add.gif](assets/add.gif)
+ ![add.gif](assets/add.gif)
 
 ### Project structure
 
