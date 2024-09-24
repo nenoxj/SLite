@@ -10,25 +10,23 @@ It is mainly used to assist in prompting, and you can quickly find some commonly
 
 ### How it works
 
-+ Search for index information
+- Search for index information
+  [![search.gif](https://i.postimg.cc/YC6tNtT0/search.gif)](https://postimg.cc/v4mRbwYw)
+- Enter index information
 
- ![search.gif](assets/search.gif)
-
-+ Enter index information
-
- ![add.gif](assets/add.gif)
+[![add.gif](https://i.postimg.cc/c4dh1hZz/add.gif)](https://postimg.cc/3Wbmngkj)
 
 ### Project structure
 
-![structure.png](assets/structure.png)
+[![structure.png](https://i.postimg.cc/FzY903QX/structure.png)](https://postimg.cc/kRd3mV4T)
 
 ### Settings
 
-| Function                   | Description                                                                                        | 
-|----------------------------|----------------------------------------------------------------------------------------------------|
-| Language switching         | Tray --> right click --> settings --> basic settings, you can do Chinese/English language settings | 
-| Custom storage directories | Tray --> right-click --> settings--> basic settings, you can set the storage directory             | 
-| System shortcuts           | Tray-->Right Click--> Settings--> shortcut keys, you can set system shortcut keys                                                                     | 
+| Function                   | Description                                                                                        |
+| -------------------------- | -------------------------------------------------------------------------------------------------- |
+| Language switching         | Tray --> right click --> settings --> basic settings, you can do Chinese/English language settings |
+| Custom storage directories | Tray --> right-click --> settings--> basic settings, you can set the storage directory             |
+| System shortcuts           | Tray-->Right Click--> Settings--> shortcut keys, you can set system shortcut keys                  |
 
 ### Build
 
@@ -46,7 +44,6 @@ Based on javapackager, in Maven Pom，This parameter is configured to package as
 And innosetup does not support Chinese, you can copy[ChineseSimplified.isl](resources%2FChineseSimplified.isl)to innosetup Languages DIRECTORY。
 
 JavaPackager supports multiple platforms，Pack if needed mac、linux，More references：[JavaPackager](https://github.com/fvarrui/JavaPackager)
-
 
 ### Download
 
