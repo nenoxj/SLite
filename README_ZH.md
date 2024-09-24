@@ -16,7 +16,7 @@ Slite是一个基于java开发的轻量搜索软件, 可以快速实现对自定
 
 + 录入索引信息
 
-+ ![add.gif](assets/add.gif)
+![add.gif](assets/add.gif)
 
 ### 项目结构
 
