@@ -40,12 +40,12 @@ class LiteNoteSearchDialog extends LiteNoteModalDialog {
     private final BundleManager bundleManager;
 
     public LiteNoteSearchDialog() {
-        super(DefaultUIConstants.SEARCH_HEIGHT);
+        super(DefaultUIConstants.getSearchHeight());
         bundleManager = ApplicationManager.getInstance().getSliteBundle();
         searchTextPanel = new SearchTextPanel();
         this.setContentPane(searchTextPanel);
         init();
-        Rectangle rectangle = LocationUtil.offsetScreenRectangle(DefaultUIConstants.SEARCH_OFFSET_Y, DefaultUIConstants.DEFAULT_WIDTH, DefaultUIConstants.SEARCH_HEIGHT);
+        Rectangle rectangle = LocationUtil.offsetScreenRectangle(DefaultUIConstants.getSearchOffsetY(), DefaultUIConstants.getDefaultWidth(), DefaultUIConstants.getSearchHeight());
         this.setBounds(rectangle);
         SwingStateManager.registerListener(this);
     }

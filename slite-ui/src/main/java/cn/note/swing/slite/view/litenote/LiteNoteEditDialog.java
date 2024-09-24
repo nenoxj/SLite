@@ -59,7 +59,7 @@ class LiteNoteEditDialog extends LiteNoteModalDialog {
     private LiteNoteView liteNoteView;
 
     LiteNoteEditDialog(LiteNoteView liteNoteView, LiteNoteService liteNoteService) {
-        super(DefaultUIConstants.RESULT_HEIGHT);
+        super(DefaultUIConstants.getDefaultHeight());
         this.liteNoteView = liteNoteView;
         this.liteNoteService = liteNoteService;
         bundleManager = ApplicationManager.getInstance().getSliteBundle();

@@ -58,9 +58,9 @@
                                            </additionalModules>-->
                                     <jrePath>${project.basedir}/../resources/jre64</jrePath>
                                     <!-- 包含jre -->
-                                    <bundleJre>true</bundleJre>
+                                    <bundleJre>false</bundleJre>
                                     <!-- 生成安装包 -->
-                                    <generateInstaller>true</generateInstaller>
+                                    <generateInstaller>false</generateInstaller>
                                     <!-- 不使用管理员身份打开程序 -->
                                     <administratorRequired>false</administratorRequired>
                                     <!-- 将指定文件夹包含到生成的程序路径 -->

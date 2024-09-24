@@ -20,5 +20,15 @@
             <artifactId>slite-core</artifactId>
             <version>1.0.1</version>
         </dependency>
+
+        <!--flexmark-->
+        <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark-util</artifactId>
+        </dependency>
     </dependencies>
 </project>

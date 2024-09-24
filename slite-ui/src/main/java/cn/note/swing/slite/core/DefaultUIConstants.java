@@ -24,19 +24,49 @@ public class DefaultUIConstants {
     /**
      * 默认宽度
      */
-    public static final int DEFAULT_WIDTH = 520;
+    public static int getDefaultWidth(){
+        return Toolkit.getDefaultToolkit().getScreenResolution()*520/96;
+    }
     /**
      * 结果高度
      */
-    public static final int RESULT_HEIGHT = 230;
+    public static int getDefaultHeight(){
+        return Toolkit.getDefaultToolkit().getScreenResolution()*230/96;
+    }
     /**
      * 搜索高度
      */
-    public static final int SEARCH_HEIGHT = 50;
+    public static int getSearchHeight(){
+        return Toolkit.getDefaultToolkit().getScreenResolution()*48/96;
+    }
     /**
      * 搜索Y轴偏移值
      */
-    public static final int SEARCH_OFFSET_Y = 200;
+    public static int  getSearchOffsetY(){
+        return Toolkit.getDefaultToolkit().getScreenResolution()*200/96;
+    }
+
+    /**
+     * @return 菜单高度
+     */
+    public static  int getMenuItemHeight(){
+      return Toolkit.getDefaultToolkit().getScreenResolution()*30/96;
+    }
+
+    /**
+     * @return 菜单宽度
+     */
+    public static  int getMenuItemWidth(){
+        return Toolkit.getDefaultToolkit().getScreenResolution()*100/96;
+    }
+
+    public static  int getMenuPanelWidth(){
+        return Toolkit.getDefaultToolkit().getScreenResolution()*600/96;
+    }
+    public static  int getMenuPanelHeight(){
+        return Toolkit.getDefaultToolkit().getScreenResolution()*500/96;
+    }
+
 
     /*---------------color---------------*/
 

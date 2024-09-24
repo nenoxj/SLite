@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import cn.note.slite.core.entity.LiteNote;
 import cn.note.slite.core.entity.Page;
 import cn.note.slite.litenote.service.LiteNoteService;
+import cn.note.swing.core.key.KeyActionFactory;
+import cn.note.swing.core.listener.GlobalKeyListener;
 import cn.note.swing.core.state.SwingStateManager;
 import cn.note.swing.core.util.BorderUtil;
 import cn.note.swing.core.util.FrameUtil;
@@ -21,6 +23,8 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -46,7 +50,7 @@ class LiteNoteListWindow extends LiteNoteModalWindow {
     private LiteNoteView liteNoteView;
 
     public LiteNoteListWindow(LiteNoteView liteNoteView, LiteNoteService liteNoteService) {
-        super(DefaultUIConstants.RESULT_HEIGHT);
+        super(DefaultUIConstants.getDefaultHeight());
         this.liteNoteView = liteNoteView;
         this.liteNoteService = liteNoteService;
         bundleManager = ApplicationManager.getInstance().getSliteBundle();
@@ -133,6 +137,7 @@ class LiteNoteListWindow extends LiteNoteModalWindow {
             this.setLayout(new MigLayout("insets 0,gap 0", "[grow]", "[grow]"));
             init();
             render();
+            bindEvents();
         }
 
 
@@ -144,6 +149,8 @@ class LiteNoteListWindow extends LiteNoteModalWindow {
             JScrollPane scrollPane = pagination.getContentScrollPane();
             scrollPane.setBorder(BorderFactory.createEmptyBorder());
             scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            // 设置滚动量
+            scrollPane.getVerticalScrollBar().setUnitIncrement(20);
             pagination.setScrollPaginationListener((contentPanel, pager) -> {
                 contentPanel.removeAll();
                 currentPage = pager.getCurrentPage();
@@ -191,6 +198,31 @@ class LiteNoteListWindow extends LiteNoteModalWindow {
                 }
                 pagination.setTotalCount(pageData.getTotalCount());
             }
+        }
+
+        private void bindEvents() {
+
+            // 全局热键
+            KeyActionFactory.registerGlobalKey(new GlobalKeyListener() {
+                @Override
+                public void callable(KeyEvent ke) {
+                    int index = -1;
+                    if (ke.getKeyCode() == KeyEvent.VK_1 && ke.isControlDown()) {
+                        index = 0;
+                    } else if (ke.getKeyCode() == KeyEvent.VK_2 && ke.isControlDown()) {
+                        index = 1;
+                    } else if (ke.getKeyCode() == KeyEvent.VK_3 && ke.isControlDown()) {
+                        index = 2;
+                    } else if (ke.getKeyCode() == KeyEvent.VK_4 && ke.isControlDown()) {
+                        index = 3;
+                    }
+
+                    if (index > -1 && container.getComponentCount() > index + 1) {
+                        JComponent c = (JComponent) container.getComponent(index);
+                        c.getActionMap().get("CopyCode").actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+                    }
+                }
+            });
         }
     }
 

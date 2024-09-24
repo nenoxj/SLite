@@ -25,7 +25,7 @@ public class SettingFrame extends ModalFrame {
 
 
     public SettingFrame() {
-        LocationUtil.centerScreenWindow(this, 600, 500);
+        LocationUtil.centerScreenWindow(this, DefaultUIConstants.getMenuPanelWidth(), DefaultUIConstants.getMenuPanelHeight());
         init();
         render();
     }

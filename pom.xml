@@ -18,9 +18,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <skipTests>true</skipTests>
         <lucene.version>8.11.3</lucene.version>
+        <flexmark.version>0.62.2</flexmark.version>
     </properties>
     <dependencyManagement>
 
+        <!--lucene-->
         <dependencies>
             <dependency>
                 <groupId>org.apache.lucene</groupId>
@@ -47,6 +49,17 @@
                 <artifactId>lucene-highlighter</artifactId>
                 <version>${lucene.version}</version>
             </dependency>
+            <!--flexmark-->
+            <dependency>
+                <groupId>com.vladsch.flexmark</groupId>
+                <artifactId>flexmark</artifactId>
+                <version>${flexmark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vladsch.flexmark</groupId>
+                <artifactId>flexmark-util</artifactId>
+                <version>${flexmark.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -63,7 +76,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>

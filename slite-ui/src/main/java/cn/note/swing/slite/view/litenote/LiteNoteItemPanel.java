@@ -5,17 +5,22 @@ import cn.hutool.core.util.StrUtil;
 import cn.note.slite.core.entity.LiteNote;
 import cn.note.swing.core.util.FrameUtil;
 import cn.note.swing.core.util.SwingCoreUtil;
+import cn.note.swing.core.view.TextConstants;
 import cn.note.swing.core.view.modal.swingx.JModalWindow;
 import cn.note.swing.core.view.panel.JERoundPanel;
 import cn.note.swing.core.view.rsta.JECodeReader;
 import cn.note.swing.core.view.rsta.RstaLanguage;
 import cn.note.swing.core.view.theme.ThemeFlatLaf;
 import cn.note.swing.core.view.theme.ThemeUI;
-import cn.note.swing.slite.core.DefaultUIConstants;
 import cn.note.swing.slite.core.ApplicationManager;
 import cn.note.swing.slite.core.BundleManager;
+import cn.note.swing.slite.core.DefaultUIConstants;
+import cn.note.swing.slite.core.SettingManager;
+import cn.note.swing.slite.core.bean.Config;
 import cn.note.swing.slite.view.litenote.state.LiteNoteDeleteState;
 import cn.note.swing.slite.view.litenote.state.LiteNoteEditState;
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import net.miginfocom.swing.MigLayout;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
@@ -23,6 +28,10 @@ import javax.swing.*;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 class LiteNoteItemPanel extends JERoundPanel {
 
@@ -94,7 +103,8 @@ class LiteNoteItemPanel extends JERoundPanel {
         morePanel.setBackground(codeReader.getBackground());
         morePanel.add(deleteButton, "gapleft 5");
         morePanel.add(editButton, "gapleft 5");
-        moreWindow.setSize(morePanel.getComponentCount() * 30, 25);
+        int scale = Toolkit.getDefaultToolkit().getScreenResolution();
+        moreWindow.setSize(morePanel.getComponentCount() * 30 * scale / 96, 25 * scale / 96);
         moreWindow.setContentPane(morePanel);
         moreButton.addActionListener(e -> {
             Point p = moreButton.getLocationOnScreen();
@@ -126,16 +136,32 @@ class LiteNoteItemPanel extends JERoundPanel {
 
 
     private void bindEvents() {
-        // 复制
-        copyButton.addActionListener(e -> {
-            String content = liteNote.getContent();
-            if (StrUtil.isNotBlank(content)) {
-                ClipboardUtil.setStr(content);
-                Rectangle rect = copyButton.getVisibleRect();
-                copyPopupMenu.show(copyButton, rect.x, rect.y + rect.height);
-                SwingCoreUtil.onceTimer(1000, () -> copyPopupMenu.setVisible(false));
+        Action copyAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String content = liteNote.getContent();
+                if (StrUtil.isNotBlank(content)) {
+                    Config config = SettingManager.getInstance().getConfig();
+                    // 仅仅复制代码
+                    if (config.isOnlyCopyCode()) {
+                        List<String> lines = new ArrayList<>();
+                        for (String line : Splitter.on(TextConstants.SEPARATOR).split(content)) {
+                            if (StrUtil.isNotBlank(line) && !line.trim().startsWith(config.getCommentPrefix())) {
+                                lines.add(line);
+                            }
+                        }
+                        content = Joiner.on(TextConstants.SEPARATOR).join(lines);
+                    }
+                    ClipboardUtil.setStr(content);
+                    Rectangle rect = copyButton.getVisibleRect();
+                    copyPopupMenu.show(copyButton, rect.x, rect.y + rect.height);
+                    SwingCoreUtil.onceTimer(1000, () -> copyPopupMenu.setVisible(false));
+                }
             }
-        });
+        };
+        // 复制
+        copyButton.addActionListener(copyAction);
+        super.getActionMap().put("CopyCode", copyAction);
 
         //删除
         deleteButton.addActionListener(e -> {
@@ -174,7 +200,7 @@ class LiteNoteItemPanel extends JERoundPanel {
 
             @Override
             public void ancestorMoved(AncestorEvent event) {
-               moreWindow.setVisible(false);
+                moreWindow.setVisible(false);
             }
         });
 

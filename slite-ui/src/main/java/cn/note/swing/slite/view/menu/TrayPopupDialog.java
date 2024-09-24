@@ -1,9 +1,12 @@
 package cn.note.swing.slite.view.menu;
 
 import cn.note.swing.core.util.ButtonFactory;
+import cn.note.swing.core.util.MessageUtil;
+import cn.note.swing.core.util.WinUtil;
 import cn.note.swing.slite.core.DefaultUIConstants;
 import cn.note.swing.slite.core.ApplicationManager;
 import cn.note.swing.slite.core.BundleManager;
+import cn.note.swing.slite.core.SettingManager;
 import com.formdev.flatlaf.ui.FlatEmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
@@ -12,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 /**
  * 托盘右键窗口
@@ -62,10 +66,20 @@ public class TrayPopupDialog extends JDialog {
         btn.setBorder(new FlatEmptyBorder(5, 5, 5, 5));
         btn.addActionListener(actionListener);
         popupContainer.add(btn, "h 30!,growx");
-        super.setSize(100, 30 * popupContainer.getComponentCount());
+        super.setSize(DefaultUIConstants.getMenuItemWidth(), DefaultUIConstants.getMenuItemHeight()* popupContainer.getComponentCount());
     }
 
     private void registerPopupMenu() {
+        //重建索引
+        addButton(bundleManager.getString("TrayMenu.item.rebuild-index"), e -> {
+            try {
+                SettingManager.getInstance().getLiteNoteService().rebuildIndex();
+                MessageUtil.ok(popupContainer,bundleManager.getString("TrayMenu.item.rebuild-index.success"));
+            } catch (IOException e1) {
+                WinUtil.alert(bundleManager.getError("TrayMenu.item.rebuild-index.error", e1));
+            }
+        });
+
         //设置
         addButton(bundleManager.getString("TrayMenu.item.setting"), e -> {
             if (settingFrame == null) {
@@ -73,6 +87,7 @@ public class TrayPopupDialog extends JDialog {
             }
             settingFrame.setVisible(true);
         });
+
 
         // 关于
         addButton(bundleManager.getString("TrayMenu.item.about"), e -> {

@@ -6,6 +6,7 @@ import cn.note.slite.litenote.service.LiteNoteHardDiskService;
 import cn.note.slite.litenote.service.LiteNoteService;
 import cn.note.swing.core.filestore.SettingFileStore;
 import cn.note.swing.slite.core.bean.BasicSetting;
+import cn.note.swing.slite.core.bean.Config;
 import cn.note.swing.slite.core.bean.SystemKeySetting;
 import cn.note.swing.slite.core.repository.BasicSettingRepository;
 import cn.note.swing.slite.core.repository.SystemKeySettingRepository;
@@ -29,7 +30,6 @@ public class SettingManager {
     private static final SettingManager SETTING_MANAGER = new SettingManager();
 
 
-
     @Getter
     private final BasicSettingRepository basicSettingRepository;
 
@@ -45,6 +45,8 @@ public class SettingManager {
     @Getter
     private File indexDirectory;
 
+    @Getter
+    private Config config;
 
     private SettingManager() {
         basicSettingRepository = new BasicSettingRepository();
@@ -90,6 +92,7 @@ public class SettingManager {
     public void initialize() throws Exception {
         initializeBasicSetting();
         initializeSystemKeySetting();
+        initConfig();
     }
 
 
@@ -146,5 +149,13 @@ public class SettingManager {
         SystemKeyManager.getInstance().registerSystemHotKey(systemKeySetting.getOpenAddKeyName(), systemKeySetting.getOpenAddKeyStroke(), () -> {
             LiteNoteStateManager.postEditState(new LiteNoteEditState());
         });
+    }
+
+
+    /**
+     * 默认配置, 暂时未开发配置项
+     */
+    private void initConfig() {
+        config = new Config();
     }
 }
